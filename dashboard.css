@@ -1,0 +1,169 @@
+:root {
+    --uw-accent: #6366F1;
+    --uw-bg: #0b0a17;
+    --uw-surface: #151429;
+    --uw-border: rgba(255, 255, 255, 0.08);
+    --uw-text: #f3f3f8;
+    --uw-sub: #9e9cb4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--uw-bg);
+    color: var(--uw-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+}
+
+.brand h1 {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+#dashSearch {
+    width: 320px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: var(--uw-surface);
+    border: 1px solid var(--uw-border);
+    color: #fff;
+    outline: none;
+}
+
+#dashSearch:focus {
+    border-color: var(--uw-accent);
+}
+
+.categories {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.chip {
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--uw-border);
+    background: var(--uw-surface);
+    color: var(--uw-sub);
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.chip.active {
+    background: var(--uw-accent);
+    color: #fff;
+    border-color: transparent;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--uw-surface);
+    border: 1px solid var(--uw-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--uw-accent);
+}
+
+.card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-store {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--uw-accent);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    flex: 1;
+}
+
+.card-price {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--uw-accent);
+    color: #fff;
+}
+
+.btn-delete {
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+}
