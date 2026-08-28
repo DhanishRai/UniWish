@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>UniWish</title>
+    <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body>
+    <div class="app">
+        <header class="header">
+            <div class="brand">
+                <img src="icons/icon.png" class="logo" alt="UniWish" />
+                <div>
+                    <h1>UniWish</h1>
+                    <p id="storeLabel">Universal Wishlist</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button id="saveTabBtn" class="icon-btn" title="Save Page">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </button>
+                <button id="fullscreenBtn" class="icon-btn" title="Full Screen View">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search saved items..." />
+        </div>
+
+        <div class="chips" id="chipsContainer">
+            <button class="chip active" data-filter="all">All</button>
+            <button class="chip" data-filter="amazon">Amazon</button>
+            <button class="chip" data-filter="flipkart">Flipkart</button>
+            <button class="chip" data-filter="myntra">Myntra</button>
+            <button class="chip" data-filter="food">Food</button>
+            <button class="chip" data-filter="others">Others</button>
+        </div>
+
+        <main class="grid" id="itemsGrid"></main>
+
+        <div id="emptyState" class="empty-state" hidden>
+            <p>No wishlisted items found.</p>
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay" hidden>
+        <div class="modal">
+            <button class="modal-close" id="modalClose">✕</button>
+            <img id="modalImg" class="modal-img" alt="" />
+            <div class="modal-content">
+                <span id="modalStore" class="modal-store"></span>
+                <h2 id="modalTitle"></h2>
+                <div class="modal-price-row">
+                    <span id="modalPrice" class="modal-price"></span>
+                    <span id="modalOrig" class="modal-orig"></span>
+                </div>
+                <textarea id="modalNote" placeholder="Add a personal note..."></textarea>
+                <div class="modal-actions">
+                    <a id="modalLink" class="btn btn-primary" target="_blank">Open Website</a>
+                    <button id="modalDelete" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
