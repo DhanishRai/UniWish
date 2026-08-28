@@ -1,0 +1,43 @@
+{
+    "manifest_version": 3,
+    "name": "UniWish — Universal Shopping Wishlist",
+    "short_name": "UniWish",
+    "version": "1.0.0",
+    "description": "Unified universal wishlist for Amazon, Flipkart, Myntra, Meesho, Pinterest, Swiggy, Zomato, and more.",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "scripting",
+        "tabs"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "UniWish — Universal Wishlist",
+        "default_icon": "icons/icon.png"
+    },
+    "icons": {
+        "16": "icons/icon.png",
+        "48": "icons/icon.png",
+        "128": "icons/icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "css": [
+                "content.css"
+            ],
+            "run_at": "document_idle"
+        }
+    ]
+}
