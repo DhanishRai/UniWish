@@ -4,6 +4,11 @@
     "short_name": "UniWish",
     "version": "1.0.0",
     "description": "Unified universal wishlist for Amazon, Flipkart, Myntra, Meesho, Pinterest, Swiggy, Zomato, and more.",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "uniwish-extension@dhanish.personal"
+        }
+    },
     "permissions": [
         "storage",
         "activeTab",
@@ -14,7 +19,6 @@
         "<all_urls>"
     ],
     "background": {
-        "service_worker": "background.js",
         "scripts": [
             "background.js"
         ]
