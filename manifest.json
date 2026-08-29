@@ -6,7 +6,12 @@
     "description": "Unified universal wishlist for Amazon, Flipkart, Myntra, Meesho, Pinterest, Swiggy, Zomato, and more.",
     "browser_specific_settings": {
         "gecko": {
-            "id": "uniwish-extension@dhanish.personal"
+            "id": "uniwish-extension@dhanish.personal",
+            "data_collection_permissions": {
+                "required": [
+                    "none"
+                ]
+            }
         }
     },
     "permissions": [
