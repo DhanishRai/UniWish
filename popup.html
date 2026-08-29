@@ -11,7 +11,7 @@
     <div class="app">
         <header class="header">
             <div class="brand">
-                <img src="icons/icon.png" class="logo" alt="UniWish" />
+                <img src="icons/icon.png" class="logo" alt="UniWish" onerror="this.style.display='none'" />
                 <div>
                     <h1>UniWish</h1>
                     <p id="storeLabel">Universal Wishlist</p>
@@ -48,7 +48,8 @@
         <main class="grid" id="itemsGrid"></main>
 
         <div id="emptyState" class="empty-state" hidden>
-            <p>No wishlisted items found.</p>
+            <p>No wishlisted items yet.<br><small style="color:var(--uw-sub)">Tap the heart icon on any product page to
+                    save it here.</small></p>
         </div>
     </div>
 
@@ -56,7 +57,9 @@
     <div class="modal-overlay" id="modalOverlay" hidden>
         <div class="modal">
             <button class="modal-close" id="modalClose">✕</button>
-            <img id="modalImg" class="modal-img" alt="" />
+            <div class="modal-img-wrap">
+                <img id="modalImg" class="modal-img" alt="" />
+            </div>
             <div class="modal-content">
                 <span id="modalStore" class="modal-store"></span>
                 <h2 id="modalTitle"></h2>
@@ -66,7 +69,7 @@
                 </div>
                 <textarea id="modalNote" placeholder="Add a personal note..."></textarea>
                 <div class="modal-actions">
-                    <a id="modalLink" class="btn btn-primary" target="_blank">Open Website</a>
+                    <a id="modalLink" class="btn btn-primary" target="_blank" rel="noopener">Open Store</a>
                     <button id="modalDelete" class="btn btn-danger">Delete</button>
                 </div>
             </div>

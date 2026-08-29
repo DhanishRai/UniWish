@@ -40,14 +40,23 @@ const els = {
 
 document.addEventListener('DOMContentLoaded', async () => {
     setupListeners();
-    await inspectTab();
     await loadData();
+    await inspectTab();
+
+    // Listen to storage changes live
+    chrome.storage.onChanged.addListener((changes, area) => {
+        if (area === 'local' && changes[STORAGE_KEY]) {
+            allItems = Array.isArray(changes[STORAGE_KEY].newValue) ? changes[STORAGE_KEY].newValue : [];
+            render();
+        }
+    });
 });
 
 async function inspectTab() {
     try {
         const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
         if (!tab?.id) return;
+
         chrome.tabs.sendMessage(tab.id, { type: 'UNIWISH_GET_PAGE_INFO' }, (res) => {
             if (chrome.runtime.lastError || !res) return;
             const t = STORE_THEMES[res.storeKey] || STORE_THEMES.generic;
@@ -61,7 +70,7 @@ async function inspectTab() {
 
 async function loadData() {
     const data = await chrome.storage.local.get({ [STORAGE_KEY]: [] });
-    allItems = data[STORAGE_KEY];
+    allItems = Array.isArray(data[STORAGE_KEY]) ? data[STORAGE_KEY] : [];
     render();
 }
 
@@ -81,10 +90,13 @@ function render() {
         const card = document.createElement('div');
         card.className = 'card';
         card.innerHTML = `
-      <img src="${item.image || ''}" class="card-img" onerror="this.src='icons/icon.png'" />
+      <div class="card-img-wrap">
+        <img src="${item.image || ''}" class="card-img" onerror="this.src='icons/icon.png'" />
+        <span class="card-badge">${item.store || 'Store'}</span>
+      </div>
       <div class="card-info">
-        <div class="card-title">${item.title}</div>
-        <div class="card-price">${item.price ? (item.currency + item.price) : 'View Item'}</div>
+        <div class="card-title" title="${item.title}">${item.title}</div>
+        <div class="card-price">${item.price != null ? (item.currency + Number(item.price).toLocaleString('en-IN')) : 'View Item'}</div>
       </div>
     `;
         card.addEventListener('click', () => openModal(item));
@@ -95,12 +107,13 @@ function render() {
 function openModal(item) {
     activeItemId = item.id;
     els.modalImg.src = item.image || 'icons/icon.png';
-    els.modalStore.textContent = item.store;
-    els.modalTitle.textContent = item.title;
-    els.modalPrice.textContent = item.price ? `${item.currency}${item.price}` : 'Price not detected';
-    els.modalOrig.textContent = item.originalPrice ? `${item.currency}${item.originalPrice}` : '';
+    els.modalImg.onerror = () => { els.modalImg.src = 'icons/icon.png'; };
+    els.modalStore.textContent = item.store || 'Product';
+    els.modalTitle.textContent = item.title || 'Untitled';
+    els.modalPrice.textContent = item.price != null ? `${item.currency}${Number(item.price).toLocaleString('en-IN')}` : 'Price not detected';
+    els.modalOrig.textContent = item.originalPrice != null ? `${item.currency}${Number(item.originalPrice).toLocaleString('en-IN')}` : '';
     els.modalNote.value = item.note || '';
-    els.modalLink.href = item.url;
+    els.modalLink.href = item.url || '#';
     els.modalOverlay.hidden = false;
 }
 
@@ -135,6 +148,10 @@ function setupListeners() {
     });
 
     els.modalClose.addEventListener('click', () => { els.modalOverlay.hidden = true; });
+    els.modalOverlay.addEventListener('click', (e) => {
+        if (e.target === els.modalOverlay) els.modalOverlay.hidden = true;
+    });
+
     els.modalNote.addEventListener('input', async () => {
         const item = allItems.find(i => i.id === activeItemId);
         if (item) {
